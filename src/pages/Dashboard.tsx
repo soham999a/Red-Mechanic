@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts'
-import { Sparkles, TrendingUp, Building2, Package, Truck } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { Sparkles, TrendingUp, Building2, Package, Truck, Edit3 } from 'lucide-react'
 
-const faultCodeData = [
+const defaultFaultData = [
   { code: 'P20EE', count: 287 },
   { code: 'P0087', count: 243 },
   { code: 'P0299', count: 198 },
@@ -10,7 +12,7 @@ const faultCodeData = [
   { code: 'U0100', count: 98 },
 ]
 
-const repairCategoryData = [
+const defaultCategoryData = [
   { name: 'Emissions', value: 34, color: '#F97316' },
   { name: 'Engine', value: 28, color: '#3B82F6' },
   { name: 'Electrical', value: 18, color: '#64748B' },
@@ -27,18 +29,53 @@ const topShops = [
 ]
 
 export default function Dashboard() {
+  const { t } = useTranslation()
+  const [editingChart, setEditingChart] = useState(false)
+  const [faultData, setFaultData] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('rin_chart_faults') || 'null') || defaultFaultData } catch { return defaultFaultData }
+  })
+  const [categoryData, setCategoryData] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('rin_chart_categories') || 'null') || defaultCategoryData } catch { return defaultCategoryData }
+  })
+  const [editFaults, setEditFaults] = useState('')
+  const [editCategories, setEditCategories] = useState('')
+
+  const openChartEditor = () => {
+    setEditFaults(JSON.stringify(faultData, null, 2))
+    setEditCategories(JSON.stringify(categoryData, null, 2))
+    setEditingChart(true)
+  }
+
+  const saveChartData = () => {
+    try {
+      const f = JSON.parse(editFaults)
+      const c = JSON.parse(editCategories)
+      setFaultData(f)
+      setCategoryData(c)
+      localStorage.setItem('rin_chart_faults', JSON.stringify(f))
+      localStorage.setItem('rin_chart_categories', JSON.stringify(c))
+      setEditingChart(false)
+    } catch { alert('Invalid JSON. Please check your syntax.') }
+  }
+
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-sora font-bold text-2xl text-navy">Intelligence Dashboard</h1>
-          <p className="text-muted text-sm">Network-wide repair intelligence & analytics</p>
+          <h1 className="font-sora font-bold text-2xl text-navy">{t('dashboard.title')}</h1>
+          <p className="text-muted text-sm">{t('dashboard.subtitle')}</p>
         </div>
-        <select className="border border-border rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-ai/30">
-          <option>Last 30 Days</option>
-          <option>Last Quarter</option>
-          <option>Year to Date</option>
-        </select>
+        <div className="flex items-center gap-2">
+          <button onClick={openChartEditor}
+            className="flex items-center gap-1.5 border border-border hover:bg-white px-3 py-2 rounded-lg text-xs font-medium transition-colors text-muted">
+            <Edit3 size={14} /> Edit Charts
+          </button>
+          <select className="border border-border rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-ai/30">
+            <option>Last 30 Days</option>
+            <option>Last Quarter</option>
+            <option>Year to Date</option>
+          </select>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -63,7 +100,7 @@ export default function Dashboard() {
         <div className="lg:col-span-3 bg-white border border-border rounded-xl p-5 shadow-sm">
           <h3 className="font-sora font-semibold text-sm text-navy mb-4">Most Common Fault Codes</h3>
           <ResponsiveContainer width="100%" height={240}>
-            <BarChart data={faultCodeData} layout="vertical">
+            <BarChart data={faultData} layout="vertical">
               <XAxis type="number" tick={{ fontSize: 12, fill: '#64748B' }} />
               <YAxis dataKey="code" type="category" tick={{ fontSize: 11, fontFamily: 'JetBrains Mono', fill: '#0F172A' }} width={60} />
               <Tooltip />
@@ -76,15 +113,12 @@ export default function Dashboard() {
           <h3 className="font-sora font-semibold text-sm text-navy mb-4">Repairs by Category</h3>
           <ResponsiveContainer width="100%" height={240}>
             <PieChart>
-              <Pie data={repairCategoryData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} innerRadius={40}>
-                {repairCategoryData.map((entry) => (
+              <Pie data={categoryData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} innerRadius={40}>
+                {categoryData.map((entry: any) => (
                   <Cell key={entry.name} fill={entry.color} />
                 ))}
               </Pie>
-              <Legend
-                verticalAlign="bottom"
-                formatter={(value) => <span className="text-xs text-muted">{value}</span>}
-              />
+              <Legend verticalAlign="bottom" formatter={(value) => <span className="text-xs text-muted">{value}</span>} />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -110,9 +144,7 @@ export default function Dashboard() {
               {topShops.map(s => (
                 <tr key={s.rank} className="border-b border-border/50 hover:bg-gray-50/50">
                   <td className="px-5 py-3">
-                    <span className={`inline-flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold ${
-                      s.rank === 1 ? 'bg-brand text-white' : 'bg-gray-100 text-muted'
-                    }`}>{s.rank}</span>
+                    <span className={`inline-flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold ${s.rank === 1 ? 'bg-brand text-white' : 'bg-gray-100 text-muted'}`}>{s.rank}</span>
                   </td>
                   <td className="px-5 py-3 font-medium text-navy">{s.name}</td>
                   <td className="px-5 py-3 text-center">{s.jobs}</td>
@@ -129,7 +161,7 @@ export default function Dashboard() {
           <div className="bg-[#EFF6FF] border-l-4 border-ai rounded-xl p-5 h-full">
             <div className="flex items-center gap-2 text-ai mb-4">
               <Sparkles size={18} />
-              <span className="font-semibold text-sm">AI Insights</span>
+              <span className="font-semibold text-sm">{t('dashboard.aiInsights')}</span>
             </div>
             <div className="space-y-4">
               {[
@@ -146,6 +178,30 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+      {editingChart && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4" onClick={() => setEditingChart(false)}>
+          <div className="bg-white rounded-xl p-6 w-full max-w-2xl shadow-xl max-h-[80vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+            <h3 className="font-sora font-bold text-lg text-navy mb-4">Edit Chart Data</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="text-xs font-medium text-muted block mb-1">Fault Codes Data (JSON array)</label>
+                <textarea value={editFaults} onChange={e => setEditFaults(e.target.value)}
+                  rows={6} className="w-full border border-border rounded-lg px-3 py-2 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-ai/30 resize-none" />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-muted block mb-1">Category Data (JSON array)</label>
+                <textarea value={editCategories} onChange={e => setEditCategories(e.target.value)}
+                  rows={6} className="w-full border border-border rounded-lg px-3 py-2 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-ai/30 resize-none" />
+              </div>
+            </div>
+            <div className="flex gap-3 mt-4">
+              <button onClick={saveChartData} className="flex-1 bg-brand hover:bg-brand-dark text-white py-2 rounded-lg text-sm font-semibold">Save & Apply</button>
+              <button onClick={() => setEditingChart(false)} className="flex-1 border border-border text-muted py-2 rounded-lg text-sm font-medium">Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

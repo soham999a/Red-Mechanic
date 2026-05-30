@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useState, useMemo } from 'react'
-import { Star, MapPin, Users, Package, Clock, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { Star, MapPin, Users, Package, Clock, ChevronDown, ChevronUp, ArrowRight, Sliders } from 'lucide-react'
 import { shops } from '../data/mockData'
 import type { Shop } from '../data/mockData'
 
@@ -13,15 +14,22 @@ interface MatchScore {
   finalScore: number
 }
 
+const defaultWeights = { parts: 0.40, tech: 0.30, rating: 0.20, distance: 0.10 }
+
 export default function Matching() {
+  const { t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
   const state = location.state as any
   const [showRanking, setShowRanking] = useState(false)
+  const [showWeights, setShowWeights] = useState(false)
+  const [weights, setWeights] = useState(defaultWeights)
 
   const requiredParts: string[] = state?.requiredParts || ['DEF Pump Assembly', 'DEF Filter Kit']
 
   const matches = useMemo(() => {
+    const total = weights.parts + weights.tech + weights.rating + weights.distance
+    const n = (v: number) => v / total
     return shops
       .map(shop => {
         const matched = shop.inventory.filter(p => requiredParts.includes(p.name) && p.quantity > 0)
@@ -30,33 +38,60 @@ export default function Matching() {
         const techScore = (shop.availableTechnicians / 5) * 100
         const ratingScore = (shop.rating / 5) * 100
         const distanceScore = Math.max(0, 100 - (shop.distance * 2))
-        const finalScore = (partsScore * 0.40) + (techScore * 0.30) + (ratingScore * 0.20) + (distanceScore * 0.10)
+        const finalScore = (partsScore * n(weights.parts)) + (techScore * n(weights.tech)) + (ratingScore * n(weights.rating)) + (distanceScore * n(weights.distance))
         return { shop, partsScore, techScore, ratingScore, distanceScore, finalScore } as MatchScore
       })
       .sort((a, b) => b.finalScore - a.finalScore)
-  }, [requiredParts])
+  }, [requiredParts, weights])
 
   const best = matches[0]
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <div className="mb-6">
-        <h1 className="font-sora font-bold text-2xl text-navy">Repair Shop Matching</h1>
+        <h1 className="font-sora font-bold text-2xl text-navy">{t('matching.title')}</h1>
         <p className="text-muted text-sm mt-1">Searching for: {requiredParts.join(', ')}</p>
       </div>
 
-      <div className="flex flex-wrap gap-2 mb-6">
-        {requiredParts.map(p => (
-          <span key={p} className="inline-flex items-center gap-1 px-3 py-1.5 bg-brand/10 text-brand rounded-full text-xs font-medium">
-            {p}
-          </span>
-        ))}
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <div className="flex flex-wrap gap-2">
+          {requiredParts.map(p => (
+            <span key={p} className="inline-flex items-center gap-1 px-3 py-1.5 bg-brand/10 text-brand rounded-full text-xs font-medium">
+              {p}
+            </span>
+          ))}
+        </div>
+        <button onClick={() => setShowWeights(!showWeights)}
+          className="flex items-center gap-1.5 text-xs font-medium text-muted border border-border px-3 py-1.5 rounded-lg hover:bg-white transition-colors">
+          <Sliders size={14} /> Tune Weights
+        </button>
       </div>
+
+      {showWeights && (
+        <div className="bg-white border border-border rounded-xl p-5 mb-6 shadow-sm">
+          <p className="font-semibold text-sm text-navy mb-3">Ranking Algorithm Weights</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {(['parts', 'tech', 'rating', 'distance'] as const).map(key => (
+              <div key={key}>
+                <div className="flex justify-between text-xs mb-1">
+                  <span className="text-muted capitalize">{key} Match</span>
+                  <span className="font-bold text-brand">{Math.round(weights[key] * 100)}%</span>
+                </div>
+                <input type="range" min={0} max={100} value={weights[key] * 100}
+                  onChange={e => setWeights({ ...weights, [key]: parseInt(e.target.value) / 100 })}
+                  className="w-full accent-brand" />
+              </div>
+            ))}
+          </div>
+          <button onClick={() => setWeights(defaultWeights)}
+            className="mt-3 text-xs text-ai hover:underline">Reset to defaults</button>
+        </div>
+      )}
 
       {best && (
         <div className="bg-white border-2 border-brand rounded-xl p-6 shadow-md mb-6 relative">
           <span className="absolute -top-2.5 left-4 bg-brand text-white text-[10px] font-bold uppercase px-3 py-1 rounded-full">
-            Best Match
+            {t('matching.bestMatch')}
           </span>
 
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mt-2">
@@ -99,7 +134,7 @@ export default function Matching() {
               onClick={() => navigate(`/shop/${best.shop.id}`, { state: { requiredParts } })}
               className="bg-brand hover:bg-brand-dark text-white px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2"
             >
-              Select Shop <ArrowRight size={16} />
+              {t('matching.selectShop')} <ArrowRight size={16} />
             </button>
           </div>
         </div>
@@ -110,7 +145,7 @@ export default function Matching() {
         className="flex items-center gap-2 text-ai text-sm font-medium mb-4 hover:underline"
       >
         {showRanking ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-        Ranking Logic
+        {t('matching.rankingLogic')}
       </button>
 
       {showRanking && best && (

@@ -266,6 +266,41 @@ export const technicians: Technician[] = [
   { id: 'tech-4', name: 'James Rodriguez', initials: 'JR', specialization: 'Transmission Specialist', available: true, experience: 10 },
 ];
 
+export interface Review {
+  id: string;
+  author: string;
+  rating: number;
+  comment: string;
+  date: string;
+  shopId: string;
+}
+
+const reviews: Review[] = [];
+const reviewAuthors = ['Tom B.', 'Jerry K.', 'Alice M.', 'Bob S.', 'Diana P.', 'Carlos R.', 'Emma W.', 'Frank L.'];
+const reviewComments = [
+  'Excellent service, fixed our Cascadia quickly. Highly recommend!',
+  'Great diagnostic work. Found the issue other shops missed.',
+  'Fair pricing and fast turnaround. Will use again.',
+  'Professional team, really know their Volvo trucks.',
+  'Had a DEF issue, they sorted it in hours. Amazing.',
+  'Bit pricey but the quality of work is top notch.',
+  'Very knowledgeable about emissions systems. Saved us thousands.',
+  'Quick response time. Got our truck back on the road same day.',
+];
+shops.forEach(shop => {
+  const count = 3 + Math.floor(Math.random() * 4);
+  for (let i = 0; i < count; i++) {
+    reviews.push({
+      id: `rev-${shop.id}-${i}`,
+      author: reviewAuthors[Math.floor(Math.random() * reviewAuthors.length)],
+      rating: +(4 + Math.random() * 1).toFixed(1),
+      comment: reviewComments[Math.floor(Math.random() * reviewComments.length)],
+      date: new Date(2024, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1).toISOString().split('T')[0],
+      shopId: shop.id,
+    });
+  }
+});
+
 export interface DiagnosisResult {
   rootCause: string;
   confidence: number;
@@ -280,4 +315,4 @@ export interface DiagnosisResult {
   additionalNotes: string;
 }
 
-export { shops, vehicles, repairHistory };
+export { shops, vehicles, repairHistory, reviews };

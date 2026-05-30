@@ -1,0 +1,12 @@
+{
+  "name": "Repair Intelligence Network",
+  "short_name": "RIN",
+  "description": "AI-powered truck repair routing platform by Red Mechanic",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#F97316",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

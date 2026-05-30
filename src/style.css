@@ -7,10 +7,10 @@
 
   --color-navy: #0F172A;
   --color-bg: #F8FAFC;
-  --color-brand: #F97316;
+  --color-brand: var(--brand, #F97316);
   --color-brand-dark: #9D4300;
-  --color-ai: #3B82F6;
-  --color-success: #22C55E;
+  --color-ai: var(--ai, #3B82F6);
+  --color-success: var(--success, #22C55E);
   --color-warning: #F59E0B;
   --color-danger: #EF4444;
   --color-muted: #64748B;

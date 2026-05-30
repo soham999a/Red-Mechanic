@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { Sparkles, AlertTriangle, Info } from 'lucide-react'
 import { commonFaultCodes, faultCategories, symptomsList, mockDiagnosisResult } from '../data/mockData'
 import type { DiagnosisResult } from '../data/mockData'
 
 export default function Diagnostics() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [make, setMake] = useState('')
   const [model, setModel] = useState('')
@@ -14,6 +16,9 @@ export default function Diagnostics() {
   const [category, setCategory] = useState('')
   const [symptoms, setSymptoms] = useState<string[]>([])
   const [notes, setNotes] = useState('')
+  const [vin, setVin] = useState('')
+  const [engineHours, setEngineHours] = useState('')
+  const [mileage, setMileage] = useState('')
   const [loading, setLoading] = useState(false)
 
   const toggleSymptom = (s: string) => {
@@ -54,6 +59,9 @@ Truck Model: ${model || 'N/A'}
 Year: ${year || 'N/A'}
 Category: ${category || 'N/A'}
 Symptoms: ${symptoms.join(', ') || 'N/A'}
+VIN: ${vin || 'N/A'}
+Engine Hours: ${engineHours || 'N/A'}
+Mileage: ${mileage || 'N/A'}
 Notes: ${notes || 'N/A'}`
 
       const result = await modelAI.generateContent(prompt)
@@ -81,8 +89,8 @@ Notes: ${notes || 'N/A'}`
     <div className="p-6 max-w-7xl mx-auto">
       <div className="flex items-center gap-3 mb-6">
         <div>
-          <h1 className="font-sora font-bold text-2xl text-navy">AI Truck Diagnostic Assistant</h1>
-          <p className="text-muted text-sm">Enter fault details for AI-powered analysis</p>
+          <h1 className="font-sora font-bold text-2xl text-navy">{t('diagnostics.title')}</h1>
+          <p className="text-muted text-sm">{t('diagnostics.subtitle')}</p>
         </div>
       </div>
 
@@ -91,7 +99,7 @@ Notes: ${notes || 'N/A'}`
           <div className="bg-white border border-border rounded-xl p-6 shadow-sm">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-navy mb-1">Truck Make</label>
+                <label className="block text-sm font-medium text-navy mb-1">{t('diagnostics.make')}</label>
                 <select
                   value={make}
                   onChange={e => setMake(e.target.value)}
@@ -104,7 +112,7 @@ Notes: ${notes || 'N/A'}`
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-navy mb-1">Truck Model</label>
+                <label className="block text-sm font-medium text-navy mb-1">{t('diagnostics.model')}</label>
                 <input
                   value={model}
                   onChange={e => setModel(e.target.value)}
@@ -113,7 +121,7 @@ Notes: ${notes || 'N/A'}`
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-navy mb-1">Year</label>
+                <label className="block text-sm font-medium text-navy mb-1">{t('diagnostics.year')}</label>
                 <select
                   value={year}
                   onChange={e => setYear(e.target.value)}
@@ -126,7 +134,7 @@ Notes: ${notes || 'N/A'}`
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-navy mb-1">Fault Code</label>
+                <label className="block text-sm font-medium text-navy mb-1">{t('diagnostics.faultCode')}</label>
                 <input
                   value={faultCode}
                   onChange={e => setFaultCode(e.target.value.toUpperCase())}
@@ -135,7 +143,16 @@ Notes: ${notes || 'N/A'}`
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-navy mb-1">Fault Category</label>
+                <label className="block text-sm font-medium text-navy mb-1">VIN</label>
+                <input
+                  value={vin}
+                  onChange={e => setVin(e.target.value.toUpperCase())}
+                  placeholder="e.g. 1HGBH41JXMN109186"
+                  className="w-full border border-border rounded-lg px-3 py-2 text-sm font-fault focus:outline-none focus:ring-2 focus:ring-ai/30 focus:border-ai uppercase"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-navy mb-1">{t('diagnostics.category')}</label>
                 <select
                   value={category}
                   onChange={e => setCategory(e.target.value)}
@@ -147,10 +164,28 @@ Notes: ${notes || 'N/A'}`
                   ))}
                 </select>
               </div>
+              <div>
+                <label className="block text-sm font-medium text-navy mb-1">Engine Hours</label>
+                <input
+                  value={engineHours}
+                  onChange={e => setEngineHours(e.target.value)}
+                  placeholder="e.g. 12,450"
+                  className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ai/30"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-navy mb-1">Mileage</label>
+                <input
+                  value={mileage}
+                  onChange={e => setMileage(e.target.value)}
+                  placeholder="e.g. 425,000"
+                  className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ai/30"
+                />
+              </div>
             </div>
 
             <div className="mt-4">
-              <label className="block text-sm font-medium text-navy mb-2">Symptoms</label>
+              <label className="block text-sm font-medium text-navy mb-2">{t('diagnostics.symptoms')}</label>
               <div className="flex flex-wrap gap-2">
                 {symptomsList.map(s => (
                   <button
@@ -169,7 +204,7 @@ Notes: ${notes || 'N/A'}`
             </div>
 
             <div className="mt-4">
-              <label className="block text-sm font-medium text-navy mb-1">Additional Notes</label>
+              <label className="block text-sm font-medium text-navy mb-1">{t('diagnostics.notes')}</label>
               <textarea
                 value={notes}
                 onChange={e => setNotes(e.target.value)}
@@ -187,10 +222,10 @@ Notes: ${notes || 'N/A'}`
               {loading ? (
                 <span className="flex items-center gap-2">
                   <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" /></svg>
-                  Analyzing with AI...
+                  {t('diagnostics.analyzing')}
                 </span>
               ) : (
-                <><Sparkles size={18} /> Analyze Issue with AI</>
+                <><Sparkles size={18} /> {t('diagnostics.analyze')}</>
               )}
             </button>
           </div>

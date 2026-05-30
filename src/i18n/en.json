@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "home": "Home",
+    "diagnostics": "Diagnostics",
+    "matching": "Shop Matching",
+    "dashboard": "Dashboard",
+    "history": "Repair History",
+    "admin": "Admin Panel"
+  },
+  "sidebar": {
+    "apiKey": "Gemini API Key",
+    "pasteKey": "Paste your API key",
+    "keyNeverLeaves": "Your key never leaves your browser"
+  },
+  "landing": {
+    "badge": "AI-Powered Fleet Intelligence",
+    "title": "Route Any Truck to the Right Shop. Instantly.",
+    "subtitle": "Red Mechanic uses AI to analyze fault codes, match inventory, and connect drivers to the best repair shop in real time.",
+    "startDemo": "Start Demo",
+    "viewDashboard": "View Dashboard",
+    "feature1Title": "AI Fault Diagnosis",
+    "feature1Desc": "Gemini AI analyzes fault codes and symptoms instantly",
+    "feature2Title": "Smart Shop Routing",
+    "feature2Desc": "Ranked by inventory match, technicians and proximity",
+    "feature3Title": "Fleet Intelligence",
+    "feature3Desc": "Network learns from every repair to get smarter"
+  },
+  "diagnostics": {
+    "title": "AI Truck Diagnostic Assistant",
+    "subtitle": "Enter fault details for AI-powered analysis",
+    "make": "Truck Make",
+    "model": "Truck Model",
+    "year": "Year",
+    "faultCode": "Fault Code",
+    "category": "Fault Category",
+    "symptoms": "Symptoms",
+    "notes": "Additional Notes",
+    "analyze": "Analyze Issue with AI",
+    "analyzing": "Analyzing with AI..."
+  },
+  "results": {
+    "title": "Analysis Results",
+    "complete": "Analysis Complete",
+    "aiDiagnosis": "AI Diagnosis by Gemini",
+    "rootCause": "Root Cause",
+    "repairDetails": "Repair Details",
+    "requiredParts": "Required Parts",
+    "costEstimate": "Cost Estimate",
+    "findShops": "Find Available Repair Shops"
+  },
+  "matching": {
+    "title": "Repair Shop Matching",
+    "bestMatch": "Best Match",
+    "rankingLogic": "Ranking Logic",
+    "selectShop": "Select Shop"
+  },
+  "shopDetail": {
+    "selectShop": "Select This Shop",
+    "overview": "Overview",
+    "inventory": "Inventory",
+    "technicians": "Technicians",
+    "reviews": "Reviews",
+    "matchScore": "Intelligent Match Score"
+  },
+  "dashboard": {
+    "title": "Intelligence Dashboard",
+    "subtitle": "Network-wide repair intelligence & analytics",
+    "aiInsights": "AI Insights"
+  },
+  "history": {
+    "title": "Repair History",
+    "subtitle": "Complete record of all AI-routed repairs",
+    "export": "Export CSV",
+    "search": "Search repairs..."
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "shops": "Repair Shops",
+    "vehicles": "Vehicles",
+    "repairs": "Repair Records"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "search": "Search",
+    "notifications": "Notifications"
+  }
+}

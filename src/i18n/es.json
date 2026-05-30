@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "diagnostics": "Diagnósticos",
+    "matching": "Talleres",
+    "dashboard": "Panel",
+    "history": "Historial",
+    "admin": "Administración"
+  },
+  "sidebar": {
+    "apiKey": "Clave API Gemini",
+    "pasteKey": "Pega tu clave API",
+    "keyNeverLeaves": "Tu clave nunca sale del navegador"
+  },
+  "landing": {
+    "badge": "Inteligencia de Flota con IA",
+    "title": "Enruta cualquier camión al taller correcto. Al instante.",
+    "subtitle": "Red Mechanic usa IA para analizar códigos de falla, coincidir inventario y conectar conductores con el mejor taller en tiempo real.",
+    "startDemo": "Iniciar Demo",
+    "viewDashboard": "Ver Panel",
+    "feature1Title": "Diagnóstico con IA",
+    "feature1Desc": "Gemini IA analiza códigos de falla y síntomas al instante",
+    "feature2Title": "Enrutamiento Inteligente",
+    "feature2Desc": "Clasificado por inventario, técnicos y proximidad",
+    "feature3Title": "Inteligencia de Flota",
+    "feature3Desc": "La red aprende de cada reparación para ser más inteligente"
+  },
+  "diagnostics": {
+    "title": "Asistente de Diagnóstico con IA",
+    "subtitle": "Ingrese los detalles de la falla para análisis con IA",
+    "make": "Marca del Camión",
+    "model": "Modelo",
+    "year": "Año",
+    "faultCode": "Código de Falla",
+    "category": "Categoría",
+    "symptoms": "Síntomas",
+    "notes": "Notas Adicionales",
+    "analyze": "Analizar con IA",
+    "analyzing": "Analizando con IA..."
+  },
+  "results": {
+    "title": "Resultados del Análisis",
+    "complete": "Análisis Completo",
+    "aiDiagnosis": "Diagnóstico por Gemini IA",
+    "rootCause": "Causa Raíz",
+    "repairDetails": "Detalles de Reparación",
+    "requiredParts": "Piezas Requeridas",
+    "costEstimate": "Estimación de Costos",
+    "findShops": "Buscar Talleres Disponibles"
+  },
+  "matching": {
+    "title": "Coincidencia de Talleres",
+    "bestMatch": "Mejor Coincidencia",
+    "rankingLogic": "Lógica de Clasificación",
+    "selectShop": "Seleccionar Taller"
+  },
+  "shopDetail": {
+    "selectShop": "Seleccionar Este Taller",
+    "overview": "Resumen",
+    "inventory": "Inventario",
+    "technicians": "Técnicos",
+    "reviews": "Opiniones",
+    "matchScore": "Puntaje de Coincidencia"
+  },
+  "dashboard": {
+    "title": "Panel de Inteligencia",
+    "subtitle": "Analítica e inteligencia de reparaciones de toda la red",
+    "aiInsights": "Información de IA"
+  },
+  "history": {
+    "title": "Historial de Reparaciones",
+    "subtitle": "Registro completo de todas las reparaciones enrutadas por IA",
+    "export": "Exportar CSV",
+    "search": "Buscar reparaciones..."
+  },
+  "admin": {
+    "title": "Panel de Administración",
+    "shops": "Talleres",
+    "vehicles": "Vehículos",
+    "repairs": "Registros de Reparación"
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "add": "Agregar",
+    "search": "Buscar",
+    "notifications": "Notificaciones"
+  }
+}
