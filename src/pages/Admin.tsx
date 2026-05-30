@@ -59,7 +59,7 @@ export default function Admin() {
   ]
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
       {notification && (
         <div className="fixed top-4 right-4 bg-navy text-white px-4 py-2 rounded-lg text-sm shadow-lg z-50 animate-pulse">
           {notification}
@@ -91,46 +91,46 @@ export default function Admin() {
             </button>
           </div>
           <div className="bg-white border border-border rounded-xl shadow-sm overflow-hidden">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border bg-gray-50/50">
-                  <th className="text-left px-4 py-3 font-semibold text-xs text-muted">Name</th>
-                  <th className="text-left px-4 py-3 font-semibold text-xs text-muted">City</th>
-                  <th className="text-center px-4 py-3 font-semibold text-xs text-muted">Rating</th>
-                  <th className="text-center px-4 py-3 font-semibold text-xs text-muted">Techs</th>
-                  <th className="text-center px-4 py-3 font-semibold text-xs text-muted">Open</th>
-                  <th className="text-right px-4 py-3 font-semibold text-xs text-muted">Actions</th>
+          <div className="overflow-x-auto"><table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-border bg-gray-50/50">
+                <th className="text-left px-4 py-3 font-semibold text-xs text-muted">Name</th>
+                <th className="text-left px-4 py-3 font-semibold text-xs text-muted">City</th>
+                <th className="text-center px-4 py-3 font-semibold text-xs text-muted">Rating</th>
+                <th className="text-center px-4 py-3 font-semibold text-xs text-muted">Techs</th>
+                <th className="text-center px-4 py-3 font-semibold text-xs text-muted">Open</th>
+                <th className="text-right px-4 py-3 font-semibold text-xs text-muted">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {shopList.map(s => (
+                <tr key={s.id} className="border-b border-border/50 hover:bg-gray-50/50">
+                  <td className="px-4 py-3 font-medium text-navy">{s.name}</td>
+                  <td className="px-4 py-3 text-muted">{s.city}</td>
+                  <td className="px-4 py-3 text-center">{s.rating}</td>
+                  <td className="px-4 py-3 text-center">{s.availableTechnicians}</td>
+                  <td className="px-4 py-3 text-center">
+                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${s.isOpen ? 'bg-green-50 text-success' : 'bg-red-50 text-danger'}`}>
+                      {s.isOpen ? 'Yes' : 'No'}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <button onClick={() => openEdit(s)} className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"><Edit2 size={14} className="text-ai" /></button>
+                      <button onClick={() => deleteShop(s.id)} className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"><Trash2 size={14} className="text-danger" /></button>
+                    </div>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {shopList.map(s => (
-                  <tr key={s.id} className="border-b border-border/50 hover:bg-gray-50/50">
-                    <td className="px-4 py-3 font-medium text-navy">{s.name}</td>
-                    <td className="px-4 py-3 text-muted">{s.city}</td>
-                    <td className="px-4 py-3 text-center">{s.rating}</td>
-                    <td className="px-4 py-3 text-center">{s.availableTechnicians}</td>
-                    <td className="px-4 py-3 text-center">
-                      <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${s.isOpen ? 'bg-green-50 text-success' : 'bg-red-50 text-danger'}`}>
-                        {s.isOpen ? 'Yes' : 'No'}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        <button onClick={() => openEdit(s)} className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"><Edit2 size={14} className="text-ai" /></button>
-                        <button onClick={() => deleteShop(s.id)} className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"><Trash2 size={14} className="text-danger" /></button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+              ))}
+            </tbody>
+          </table></div>
           </div>
         </div>
       )}
 
       {tab === 'vehicles' && (
         <div className="bg-white border border-border rounded-xl shadow-sm overflow-hidden">
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto"><table className="w-full text-sm">
             <thead>
               <tr className="border-b border-border bg-gray-50/50">
                 <th className="text-left px-4 py-3 font-semibold text-xs text-muted">Make</th>
@@ -157,7 +157,7 @@ export default function Admin() {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         </div>
       )}
 

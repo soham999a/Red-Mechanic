@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Sidebar from './components/Sidebar'
+import { useSidebar } from './components/Sidebar'
 import { applyColors, loadColors } from './components/ColorCustomizer'
 import Landing from './pages/Landing'
 import Diagnostics from './pages/Diagnostics'
@@ -14,13 +15,15 @@ import Admin from './pages/Admin'
 export default function App() {
   const location = useLocation()
   const isLanding = location.pathname === '/'
+  const { setOpen } = useSidebar()
 
   useEffect(() => { applyColors(loadColors()) }, [])
+  useEffect(() => { setOpen(false) }, [location.pathname])
 
   return (
-    <div className="flex min-h-screen bg-bg">
+    <div className="min-h-screen bg-bg">
       {!isLanding && <Sidebar />}
-      <main className={`flex-1 ${isLanding ? '' : 'ml-[240px]'}`}>
+      <main className={`${isLanding ? '' : 'pt-14 lg:pt-0 lg:ml-[240px]'}`}>
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/diagnostics" element={<Diagnostics />} />

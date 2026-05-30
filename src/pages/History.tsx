@@ -84,7 +84,7 @@ export default function History() {
   const makes = [...new Set(repairHistory.map(r => r.truckMake))]
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="font-sora font-bold text-2xl text-navy">{t('history.title')}</h1>
@@ -140,7 +140,7 @@ export default function History() {
       </div>
 
       <div className="bg-white border border-border rounded-xl shadow-sm overflow-hidden">
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto"><table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-gray-50/50">
               <th className="text-left px-4 py-3 font-semibold text-xs text-muted uppercase">ID</th>
@@ -182,7 +182,7 @@ export default function History() {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table></div>
       </div>
 
       <div className="flex items-center justify-between mt-4 text-sm text-muted">

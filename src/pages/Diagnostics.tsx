@@ -86,7 +86,7 @@ Notes: ${notes || 'N/A'}`
   }
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
       <div className="flex items-center gap-3 mb-6">
         <div>
           <h1 className="font-sora font-bold text-2xl text-navy">{t('diagnostics.title')}</h1>
@@ -94,8 +94,8 @@ Notes: ${notes || 'N/A'}`
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        <div className="lg:col-span-3">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6">
+        <div className="lg:col-span-3 lg:order-1 order-1">
           <div className="bg-white border border-border rounded-xl p-6 shadow-sm">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -231,7 +231,7 @@ Notes: ${notes || 'N/A'}`
           </div>
         </div>
 
-        <div className="lg:col-span-2 space-y-4">
+        <div className="lg:col-span-2 lg:order-2 order-2 space-y-4">
           <div className="bg-white border border-border rounded-xl p-5 shadow-sm">
             <h3 className="font-sora font-semibold text-base text-navy mb-3">Common Fault Codes</h3>
             <div className="space-y-2">

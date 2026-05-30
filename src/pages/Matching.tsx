@@ -47,7 +47,7 @@ export default function Matching() {
   const best = matches[0]
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
       <div className="mb-6">
         <h1 className="font-sora font-bold text-2xl text-navy">{t('matching.title')}</h1>
         <p className="text-muted text-sm mt-1">Searching for: {requiredParts.join(', ')}</p>
@@ -173,7 +173,7 @@ export default function Matching() {
       )}
 
       <div className="bg-white border border-border rounded-xl shadow-sm overflow-hidden">
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto"><table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-gray-50/50">
               <th className="text-left px-4 py-3 font-semibold text-xs text-muted uppercase">Rank</th>
@@ -225,7 +225,7 @@ export default function Matching() {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table></div>
       </div>
     </div>
   )

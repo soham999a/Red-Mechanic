@@ -37,7 +37,7 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-bg">
       <nav className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="font-sora font-bold text-2xl text-brand">RIN</span>
             <span className="text-navy font-medium text-sm hidden sm:inline">Red Mechanic</span>
@@ -58,13 +58,13 @@ export default function Landing() {
         </div>
       </nav>
 
-      <section className="max-w-7xl mx-auto px-6 pt-20 pb-16 flex flex-col items-center text-center min-h-[80vh] justify-center">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-16 flex flex-col items-center text-center min-h-[80vh] justify-center">
         <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand/10 text-brand text-xs font-semibold mb-6">
           <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
           {content.badge || t('landing.badge')}
         </span>
 
-        <h1 className="font-sora font-bold text-[56px] leading-[1.1] tracking-tight text-navy max-w-4xl">
+          <h1 className="font-sora font-bold text-3xl sm:text-4xl md:text-5xl lg:text-[56px] leading-[1.1] tracking-tight text-navy max-w-4xl">
           {content.title || t('landing.title')}
         </h1>
 
@@ -88,7 +88,7 @@ export default function Landing() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 pb-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
         <div className="grid md:grid-cols-3 gap-6">
           {features.map(({ icon: Icon, titleKey, descKey }) => (
             <div key={titleKey} className="bg-white border border-border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
@@ -103,7 +103,7 @@ export default function Landing() {
       </section>
 
       <section className="bg-navy py-6">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-3 text-white/80 text-sm font-medium">
             <span>2,400+ Repair Shops</span>
             <span className="text-white/20">|</span>

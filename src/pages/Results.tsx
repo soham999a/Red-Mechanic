@@ -37,7 +37,7 @@ export default function Results() {
   }
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
       <div className="flex items-center gap-4 mb-6">
         <button onClick={() => navigate('/diagnostics')} className="p-2 hover:bg-white rounded-lg transition-colors">
           <ArrowLeft size={20} className="text-muted" />
@@ -55,7 +55,7 @@ export default function Results() {
         </div>
       </div>
 
-      <div className="bg-[#EFF6FF] border-l-4 border-ai rounded-xl p-6 mb-6 flex items-center justify-between gap-6">
+      <div className="bg-[#EFF6FF] border-l-4 border-ai rounded-xl p-4 sm:p-6 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
         <div>
           <div className="flex items-center gap-2 text-ai font-semibold text-xs uppercase tracking-wider mb-2">
             <Sparkles size={16} /> AI Diagnosis by Gemini

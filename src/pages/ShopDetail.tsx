@@ -45,7 +45,7 @@ export default function ShopDetail() {
   }
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
       <div className="flex items-center gap-4 mb-6">
         <button onClick={() => navigate('/matching', { state: { requiredParts } })} className="p-2 hover:bg-white rounded-lg transition-colors">
           <ArrowLeft size={20} className="text-muted" />
@@ -248,7 +248,7 @@ export default function ShopDetail() {
 
           <div className="bg-white border border-border rounded-xl p-5 shadow-sm">
             <p className="text-xs font-semibold text-muted uppercase tracking-wider mb-3">Quick Stats</p>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
                 { label: 'Jobs This Month', value: `${Math.floor(Math.random() * 80) + 20}` },
                 { label: 'Avg Repair Time', value: `${(Math.random() * 3 + 2).toFixed(1)} hrs` },

@@ -59,7 +59,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="font-sora font-bold text-2xl text-navy">{t('dashboard.title')}</h1>
@@ -129,7 +129,7 @@ export default function Dashboard() {
           <div className="p-5 pb-0">
             <h3 className="font-sora font-semibold text-sm text-navy">Top Performing Shops</h3>
           </div>
-          <table className="w-full text-sm mt-2">
+          <div className="overflow-x-auto"><table className="w-full text-sm mt-2">
             <thead>
               <tr className="border-b border-border">
                 <th className="text-left px-5 py-3 font-semibold text-xs text-muted">Rank</th>
@@ -152,10 +152,10 @@ export default function Dashboard() {
                   <td className="px-5 py-3 text-center">{s.avgTime}</td>
                   <td className="px-5 py-3 text-right font-medium">{s.revenue}</td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table></div>
+      </div>
 
         <div className="lg:col-span-2">
           <div className="bg-[#EFF6FF] border-l-4 border-ai rounded-xl p-5 h-full">
