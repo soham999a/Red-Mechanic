@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sora: "Sora", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  --font-jetbrains: "JetBrains Mono", monospace;
+
+  --color-navy: #0F172A;
+  --color-bg: #F8FAFC;
+  --color-brand: #F97316;
+  --color-brand-dark: #9D4300;
+  --color-ai: #3B82F6;
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-muted: #64748B;
+  --color-border: #E2E8F0;
+}
+
+body {
+  font-family: var(--font-inter);
+  background-color: var(--color-bg);
+  color: #0F172A;
+}
+
+.font-fault {
+  font-family: var(--font-jetbrains);
+}
